@@ -23,13 +23,16 @@ Open the Apps Script editor (`Extensions` > `Apps Script`) and paste the content
 - `Snapshots`: Automatically generated historical states.
 - `Script Log`: Developer diagnostic logs.
 
-### 2. Environment Variables (Script Properties)
-Instead of exposing your API keys in the code, this script uses Apps Script Properties (the equivalent of a `.env` file). 
-1. In the Apps Script Editor, go to **Project Settings** (the gear icon).
-2. Scroll down to **Script Properties**.
-3. Add the following keys:
-   - `STRAWPOLL_API_KEY`: Your StrawPoll V3 API Key.
-   - `SHEET_ID`: The long string found in your Google Sheet's URL.
+### 2. Environment Variables (Script Properties) — ⚠️ REQUIRED
+For security, this script **does not** allow hardcoded API keys. If you paste your keys directly into the `Code.gs` file, you risk exposing them if you ever share your project. The script will intentionally throw an error and refuse to run until you set up secure Script Properties.
+
+To set these up:
+1. In the Apps Script Editor, go to **Project Settings** (the gear icon on the left menu).
+2. Scroll down to **Script Properties** and click **Add script property**.
+3. Add the following two properties exactly as written:
+   - Property: `STRAWPOLL_API_KEY` | Value: *Your StrawPoll V3 API Key*
+   - Property: `SHEET_ID` | Value: *The long string found in your Google Sheet's URL*
+4. Click **Save script properties**.
 
 ### 3. Webhook Automation (Optional)
 To have the script run instantly when a StrawPoll closes:
