@@ -5,9 +5,10 @@
 const scriptProps = PropertiesService.getScriptProperties();
 
 const CONFIG = {
-  // Credentials pull securely from Apps Script > Project Settings > Script Properties
-  API_KEY:         scriptProps.getProperty('STRAWPOLL_API_KEY') || 'YOUR_STRAWPOLL_API_KEY_HERE',
-  SHEET_ID:        scriptProps.getProperty('SHEET_ID') || 'YOUR_GOOGLE_SHEET_ID_HERE',
+  // Credentials pull STRICTLY from Apps Script > Project Settings > Script Properties
+  // DO NOT hardcode your keys in this file.
+  API_KEY:         scriptProps.getProperty('STRAWPOLL_API_KEY'),
+  SHEET_ID:        scriptProps.getProperty('SHEET_ID'),
   
   LEADERBOARD_TAB: '2026 Scores',   
   CONFIG_TAB:      'Config',
@@ -26,6 +27,11 @@ const CONFIG = {
   PDF_RANGE:       'B1:D12',          
   PDF_FOLDER_NAME: 'Fast Facts PDFs', 
 };
+
+// Fail early and loudly if the user forgot to set up their Script Properties
+if (!CONFIG.API_KEY || !CONFIG.SHEET_ID) {
+  console.error("CRITICAL ERROR: Missing Script Properties. Please go to Project Settings (gear icon) and add STRAWPOLL_API_KEY and SHEET_ID.");
+}
 
 
 // ============================================================
